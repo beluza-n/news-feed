@@ -12,9 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4$#cxok8$7&wr2wop-ou4*6%x)m&j1b9ell+&z*h((8*%(&3%j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'news-feed.sytes.net'
+]
 
 
 # Application definition
@@ -141,8 +145,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'api.pagination.CustomPageNumberPagination',
     'PAGE_SIZE': 5,
@@ -163,7 +167,13 @@ SPECTACULAR_SETTINGS = {
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
-    'http://158.160.154.62',
-    'https://news-feed.sytes.net'
+    'http://127.0.0.1:8000',
+    'https://news-feed.sytes.net',
 ]
-CORS_URLS_REGEX = r'^/api/.*$'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.sytes.net/',
+    'http://*.sytes.net/',
+    'https://*.127.0.0.1',
+    'http://*.127.0.0.1',
+    ]

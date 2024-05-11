@@ -6,7 +6,7 @@ from users.serializers import CustomUserSerializer
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.CharField(source='author.email', required=False)
+    author = serializers.CharField(source='author.username', required=False)
     
     class Meta:
         model = Comment
