@@ -13,7 +13,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class NewsSerializer(serializers.ModelSerializer):
     author = serializers.CharField(source='author.username', required=False)
-    total_favorite = serializers.IntegerField(read_only=True)
+    total_favorites = serializers.IntegerField(read_only=True)
     total_comments = serializers.IntegerField(read_only=True)
     comments = serializers.SerializerMethodField()
 
@@ -21,7 +21,7 @@ class NewsSerializer(serializers.ModelSerializer):
         model = News
         fields = (
             'id', 'title', 'text', 'author', 'pub_date',
-            'total_favorite', 'total_comments', 'comments')
+            'total_favorites', 'total_comments', 'comments')
 
     def get_comments(self, obj):
         request = self.context['request']

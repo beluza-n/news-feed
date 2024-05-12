@@ -53,7 +53,7 @@ class NewsViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = News.objects.all().\
-            annotate(total_favorite=Count('favorites'))
+            annotate(total_favorites=Count('favorites'))
         queryset = queryset.annotate(total_comments=Count('comments'))
 
         return queryset.order_by('-pub_date')
