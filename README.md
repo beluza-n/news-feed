@@ -21,7 +21,7 @@
 
 ### Как запустить проект:
 
-Клонировать репозиторий и перейти в командной строке во вложенную папку backend:
+Клонировать репозиторий и перейти в папку news-feed:
 
 ```
 git clone git@github.com:beluza-n/news-feed.git
@@ -29,54 +29,27 @@ git clone git@github.com:beluza-n/news-feed.git
 
 ```
 cd news-feed
-cd backend
+```
+Создать файл .env на основе .env.example
+
+Запустить локально Docker compose:
+```
+sudo docker compose up -d
 ```
 
-Cоздать и активировать виртуальное окружение:
-
+Выполнить команды миграции, сбора статических файлов, создания суперпользователя:
 ```
-python3 -m venv env
-```
-
-* В Linux/macOS
-
-    ```
-    source env/bin/activate
-    ```
-
-* В Windows
-
-    ```
-    source env/Scripts/activate
-    ```
-
-```
-python -m pip install --upgrade pip
+sudo docker compose exec backend python manage.py migrate
+sudo docker compose exec backend python manage.py collectstatic
+sudo docker compose exec backend cp -r /app/collected_static/. /backend_static/static/
+sudo docker compose exec backend python manage.py createsuperuser
 ```
 
-Установить зависимости из файла requirements.txt:
-
-```
-pip install -r requirements.txt
-```
-
-Выполнить миграции:
-
-```
-python manage.py migrate
-```
-
-Создать супер-пользователя (опционально):
-
-```
-python manage.py createsuperuser
-```
-
-Запустить проект:
-
-```
-python manage.py runserver
-```
-
+Локальный сервер запущен.
 Перейти на url-адрес согласно документации, например, на http://127.0.0.1:8000/api/news
 Админ-панель доступна по адресу http://127.0.0.1:8000/admin/
+
+Для остановки сервера использовать команду :
+```
+sudo docker compose down
+```
