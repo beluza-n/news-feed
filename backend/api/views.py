@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
-from django.db.models import Count
+from django.db.models import Count, Q, Subquery
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import (
     extend_schema, extend_schema_view, OpenApiParameter)
@@ -52,9 +52,8 @@ class NewsViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
     def get_queryset(self):
-        queryset = News.objects.all().\
-            annotate(total_favorites=Count('favorites'))
-        queryset = queryset.annotate(total_comments=Count('comments'))
+        queryset = News.objects.annotate(total_favorites=Count('favorites', distinct=True))
+        queryset = queryset.annotate(total_comments=Count('comments', distinct=True))
 
         return queryset.order_by('-pub_date')
 
