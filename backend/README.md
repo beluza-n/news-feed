@@ -3,7 +3,7 @@
 * API доступно по адресу [news-feed.sytes.net](https://news-feed.sytes.net/api/news/)
 * [API документация Redoc](https://news-feed.sytes.net/api/schema/redoc/).
 * [API документация Swagger](https://news-feed.sytes.net/api/schema/swagger-ui/).
-* Исходный код доступен в [публичном репозитории](git@github.com:beluza-n/news-feed.git)
+* Исходный код доступен в [публичном репозитории](https://github.com/beluza-n/news-feed)
 
 
 Автор:
@@ -21,7 +21,7 @@
 
 ### Как запустить проект:
 
-Клонировать репозиторий и перейти в него в командной строке:
+Клонировать репозиторий и перейти в командной строке во вложенную папку backend:
 
 ```
 git clone git@github.com:beluza-n/news-feed.git
@@ -29,6 +29,7 @@ git clone git@github.com:beluza-n/news-feed.git
 
 ```
 cd news-feed
+cd backend
 ```
 
 Cоздать и активировать виртуальное окружение:
