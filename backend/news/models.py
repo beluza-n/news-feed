@@ -6,7 +6,9 @@ User = get_user_model()
 
 
 class News(models.Model):
-    pub_date = models.DateTimeField(default=datetime.datetime.now, verbose_name='publication date')
+    pub_date = models.DateTimeField(
+        default=datetime.datetime.now,
+        verbose_name='publication date')
     title = models.CharField(max_length=1024, verbose_name='news title')
     text = models.TextField(verbose_name='news text')
     author = models.ForeignKey(
@@ -14,8 +16,12 @@ class News(models.Model):
         on_delete=models.CASCADE,
         related_name='news')
 
+    class Meta:
+        verbose_name_plural = "News"
+
     def __str__(self):
         return self.title
+
 
 class Comment(models.Model):
     pub_date = models.DateTimeField(
@@ -33,6 +39,9 @@ class Comment(models.Model):
         related_name='comments',
         verbose_name='news described in comment'
     )
+
+    def __str__(self):
+        return f"{self.author} commented {self.news}"
 
 
 class Favorites(models.Model):
@@ -56,4 +65,4 @@ class Favorites(models.Model):
         ordering = ["-news"]
 
     def __str__(self):
-        f"{self.user} favorites {self.news}"
+        return f"{self.user} favorites {self.news}"

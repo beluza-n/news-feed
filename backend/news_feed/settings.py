@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'news.apps.NewsConfig',
     'api.apps.ApiConfig',
-    'drf_spectacular',    
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -151,7 +151,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'api.pagination.CustomPageNumberPagination',
     'PAGE_SIZE': 5,
 
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema', 
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SPECTACULAR_SETTINGS = {

@@ -1,16 +1,17 @@
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
-from django.db.models import Count, Q
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiExample
+from django.db.models import Count
+from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import (
+    extend_schema, extend_schema_view, OpenApiParameter)
 
 from .pagination import CustomPageNumberPagination
-from news.models import News, Comment, Favorites
-from .serializers import NewsSerializer, CommentSerializer, DummyPostNewsSerializer
+from news.models import News, Favorites
+from .serializers import (
+    NewsSerializer, CommentSerializer, DummyPostNewsSerializer)
 from .permissions import NewsPermission
 
 
@@ -51,20 +52,10 @@ class NewsViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
     def get_queryset(self):
-        user = self.request.user
-        user_id = user.id if not user.is_anonymous else None
-        queryset = News.objects.all().annotate(
-            total_favorite=Count(
-                "favorites",
-                filter=Q(favorites__user_id=user_id)
-            )
-        )
-        queryset = queryset.annotate(
-            total_comments=Count(
-                "comments",
-                filter=Q(comments__author_id=user_id)
-            )
-        )
+        queryset = News.objects.all().\
+            annotate(total_favorite=Count('favorites'))
+        queryset = queryset.annotate(total_comments=Count('comments'))
+
         return queryset.order_by('-pub_date')
 
 
@@ -93,6 +84,7 @@ class CommentViewSet(viewsets.ModelViewSet):
             author=self.request.user,
             news=self.get_news()
         )
+
 
 @extend_schema(tags=["Favorites"])
 @extend_schema_view(
